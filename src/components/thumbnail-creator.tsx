@@ -4,6 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import Dropzone from "./dropzone";
 import Style from "./style";
 import { removeBackground } from "@imgly/background-removal";
+import { Button } from "./ui/button";
+import { IoMdArrowBack } from "react-icons/io";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { inter, domine } from "../app/fonts";
 
 const ThumbnailCreator = () => {
   const [selectedStyle, setSelectedStyle] = useState("style1");
@@ -14,6 +33,28 @@ const ThumbnailCreator = () => {
     null,
   );
   const [canvasReady, setCanvasReady] = useState(false);
+  const [text, setText] = useState("POV");
+  const [font, setFont] = useState("arial");
+  const presets = {
+    style1: {
+      fontSize: 100,
+      fontWeight: "bold",
+      color: "rgba(255,255,255,1)",
+      opacity: 1,
+    },
+    style2: {
+      fontSize: 100,
+      fontWeight: "bold",
+      color: "rgba(0,0,0,1)",
+      opacity: 1,
+    },
+    style3: {
+      fontSize: 100,
+      fontWeight: "bold",
+      color: "rgba(255,255,255,0.8)",
+      opacity: 0.8,
+    },
+  };
 
   const setSelectedImage = async (file?: File) => {
     if (file) {
@@ -39,12 +80,81 @@ const ThumbnailCreator = () => {
   }, [canvasReady]);
 
   const drawCompositeImage = () => {
-    if (!canvasRef.current || !canvasReady || !imageSrc) return;
+    if (!canvasRef.current || !canvasReady || !imageSrc || !processedImageSrc)
+      return;
     const canvas = canvasRef.current;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const img = new Image();
+    const bgImg = new Image();
+
+    bgImg.onload = () => {
+      canvas.width = bgImg.width;
+      canvas.height = bgImg.height;
+
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+
+      let preset = presets.style1;
+      switch (selectedStyle) {
+        case "style2":
+          preset = presets.style2;
+          break;
+        case "style3":
+          preset = presets.style3;
+          break;
+      }
+
+      ctx.save();
+
+      //Calculate font size to fill image 90% of the canvas
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      let fontSize = 100;
+      let selectFont = "arial";
+      switch (font) {
+        case "inter":
+          selectFont = inter.style.fontFamily;
+          break;
+        case "domine":
+          selectFont = domine.style.fontFamily;
+          break;
+      }
+      ctx.font = `${preset.fontWeight} ${fontSize}px ${selectFont}`;
+      const textWidth = ctx.measureText(text).width;
+      const targetWidth = canvas.width * 0.9;
+
+      fontSize *= targetWidth / textWidth;
+      ctx.font = `${preset.fontWeight} ${fontSize}px ${selectFont}`;
+
+      ctx.fillStyle = preset.color;
+      ctx.globalAlpha = preset.opacity;
+
+      const x = canvas.width / 2;
+      const y = canvas.height / 2;
+
+      ctx.translate(x, y);
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+
+      const fgImg = new Image();
+
+      fgImg.onload = () => {
+        ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
+      };
+      fgImg.src = processedImageSrc;
+    };
+
+    bgImg.src = imageSrc;
+  };
+
+  const handleDownload = async () => {
+    if (canvasRef.current) {
+      const link = document.createElement("a");
+      link.download = "image.png";
+      link.href = canvasRef.current.toDataURL();
+      link.click();
+    }
   };
 
   return (
@@ -58,10 +168,71 @@ const ThumbnailCreator = () => {
               </div>
             </>
           ) : (
-            <canvas
-              ref={canvasRef}
-              className="max-h-lg h-auto w-full max-w-lg rounded-lg"
-            ></canvas>
+            <div className="flex w-full max-w-2xl flex-col items-center gap-5">
+              <div className="my-4 flex w-full flex-col items-center gap-3">
+                <button
+                  className="flex items-center gap-2 self-start"
+                  onClick={() => {
+                    setImageSrc(null);
+                    setProcessedImageSrc(null);
+                    setCanvasReady(false);
+                  }}
+                >
+                  <IoMdArrowBack className="h-4 w-4" />
+                  <p className="leading-7">Go back</p>
+                </button>
+                <canvas
+                  ref={canvasRef}
+                  className="max-h-lg h-auto w-full max-w-lg rounded-lg"
+                ></canvas>
+              </div>
+              <Card className="w-full overflow-auto">
+                <CardHeader>
+                  <CardTitle>Edit</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <Label htmlFor="text">Text</Label>
+                      <Input
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        id="text"
+                        placeholder="Text in thumbnail"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="font">Font</Label>
+                      <Select
+                        value={font}
+                        onValueChange={(value) => setFont(value)}
+                      >
+                        <SelectTrigger id="font" className="w-full">
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                          <SelectItem value="arial">Arial</SelectItem>
+                          <SelectItem value="inter">Inter</SelectItem>
+                          <SelectItem value="domine">Domine</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-wrap justify-between gap-2">
+                  <Button
+                    onClick={() => handleDownload()}
+                    className="w-full"
+                    variant={"outline"}
+                  >
+                    Download
+                  </Button>
+                  <Button onClick={drawCompositeImage} className="w-full">
+                    Update
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
           )}
         </>
       ) : (
@@ -77,17 +248,17 @@ const ThumbnailCreator = () => {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-10 md:flex-row md:items-start">
             <Style
-              image="styletest.png"
+              image="style1.png"
               selectStyle={() => setSelectedStyle("style1")}
               isSelected={selectedStyle === "style1"}
             />
             <Style
-              image="styletest.png"
+              image="style2.png"
               selectStyle={() => setSelectedStyle("style2")}
               isSelected={selectedStyle === "style2"}
             />
             <Style
-              image="styletest.png"
+              image="style3.png"
               selectStyle={() => setSelectedStyle("style3")}
               isSelected={selectedStyle === "style3"}
             />
