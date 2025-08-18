@@ -24,7 +24,7 @@ import {
 } from "./ui/select";
 import { inter, domine } from "../app/fonts";
 
-const ThumbnailCreator = () => {
+const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
   const [selectedStyle, setSelectedStyle] = useState("style1");
   const [loading, setLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -237,13 +237,13 @@ const ThumbnailCreator = () => {
         </>
       ) : (
         <div className="mt-10 flex flex-col">
-          <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance lg:text-5xl">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance lg:text-5xl">
             Hi there
           </h1>
-          <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance lg:text-5xl">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance lg:text-5xl">
             Want to create a thumbnail?
           </h1>
-          <p className="text-muted-foreground mt-2 text-center text-sm">
+          <p className="text-muted-foreground mt-2 text-sm">
             Use one of the templates below
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-10 md:flex-row md:items-start">
@@ -264,6 +264,7 @@ const ThumbnailCreator = () => {
             />
           </div>
           <Dropzone setSelectedImage={setSelectedImage} />
+          <div className="mt-8">{children}</div>
         </div>
       )}
     </>
