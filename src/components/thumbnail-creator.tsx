@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { inter, domine } from "../app/fonts";
+import { getPresignedUrl } from "~/app/actions/aws";
 
 const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
   const [selectedStyle, setSelectedStyle] = useState("style1");
@@ -154,6 +155,26 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
       link.download = "image.png";
       link.href = canvasRef.current.toDataURL();
       link.click();
+
+      const uploadUrl = await getPresignedUrl();
+
+      canvasRef.current.toBlob(async (blob) => {
+        if (blob) {
+          try {
+            const uploadUrl = await getPresignedUrl();
+            await fetch(uploadUrl, {
+              method: "PUT",
+              body: blob,
+              headers: {
+                ContentType: "image/png",
+              },
+            });
+            console.log("File uploaded successfully");
+          } catch (error) {
+            console.log("Error uploading file");
+          }
+        }
+      }, "image/png");
     }
   };
 
