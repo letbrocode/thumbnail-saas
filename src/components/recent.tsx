@@ -32,6 +32,7 @@ const Recent = async () => {
   }).map((item) => ({
     url: `https://${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com/${item.Key}`,
     createdAt: item.LastModified ?? new Date(),
+    key: item.Key!,
   }));
 
   return (
@@ -45,7 +46,7 @@ const Recent = async () => {
       <Separator className="my-2" />
       <div className="flex h-fit max-w-full gap-2 overflow-x-scroll">
         {recentThumbnails?.map((thumbnail) => (
-          <div className="flex min-w-fit flex-col gap-1">
+          <div className="flex min-w-fit flex-col gap-1" key={thumbnail.key}>
             <img
               src={thumbnail.url}
               alt="image"

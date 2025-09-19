@@ -24,6 +24,7 @@ import {
 } from "./ui/select";
 import { inter, domine } from "../app/fonts";
 import { getPresignedUrl } from "~/app/actions/aws";
+import { generate, refresh } from "~/app/actions/generate";
 
 const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
   const [selectedStyle, setSelectedStyle] = useState("style1");
@@ -71,6 +72,7 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       };
       reader.readAsDataURL(file);
+      await generate();
     }
   };
 
@@ -193,10 +195,11 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
               <div className="my-4 flex w-full flex-col items-center gap-3">
                 <button
                   className="flex items-center gap-2 self-start"
-                  onClick={() => {
+                  onClick={async () => {
                     setImageSrc(null);
                     setProcessedImageSrc(null);
                     setCanvasReady(false);
+                    await refresh();
                   }}
                 >
                   <IoMdArrowBack className="h-4 w-4" />
