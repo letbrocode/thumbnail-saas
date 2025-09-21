@@ -10,13 +10,16 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
+import { redirectToBillingSession } from "~/app/actions/stripe";
 
 const PricingCard = ({
   pricing,
   credits,
+  priceId,
 }: {
   pricing: string;
   credits: string;
+  priceId: string;
 }) => {
   return (
     <Card className="h-fit w-60">
@@ -40,7 +43,10 @@ const PricingCard = ({
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => {}} className="mt-6 w-full">
+        <Button
+          onClick={async () => await redirectToBillingSession(priceId)}
+          className="mt-6 w-full"
+        >
           Buy now
         </Button>
       </CardFooter>

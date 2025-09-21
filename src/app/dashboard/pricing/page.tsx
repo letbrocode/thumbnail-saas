@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { IoMdArrowBack } from "react-icons/io";
 import PricingCard from "~/components/pricing-card";
+import { env } from "~/env";
 
 const Page = () => {
   return (
@@ -13,9 +14,21 @@ const Page = () => {
           <p className="leading-7">Go back</p>
         </Link>
         <div className="flex flex-col gap-4 md:flex-row">
-          <PricingCard pricing="$10" credits="10" />
-          <PricingCard pricing="$20" credits="25" />
-          <PricingCard pricing="$50" credits="100" />
+          <PricingCard
+            priceId={env.STRIPE_10_PACK}
+            pricing="$10"
+            credits="10"
+          />
+          <PricingCard
+            priceId={env.STRIPE_25_PACK}
+            pricing="$20"
+            credits="25"
+          />
+          <PricingCard
+            priceId={env.STRIPE_100_PACK}
+            pricing="$50"
+            credits="100"
+          />
         </div>
       </div>
     </div>

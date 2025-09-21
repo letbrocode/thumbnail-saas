@@ -65,6 +65,7 @@ model User {
     posts         Post[]
     password      String
     credits       Int   @default(1)
+    stripeCustomerId String? @unique
 }
 
 model VerificationToken {

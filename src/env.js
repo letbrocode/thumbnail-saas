@@ -13,6 +13,7 @@ export const env = createEnv({
         : z.string().optional(),
     // AUTH_DISCORD_ID: z.string(),
     // AUTH_DISCORD_SECRET: z.string(),
+    NEXTAUTH_URL: z.string(),
     DATABASE_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -21,6 +22,12 @@ export const env = createEnv({
     AWS_SECRET_KEY: z.string(),
     AWS_REGION: z.string(),
     AWS_BUCKET_NAME: z.string(),
+    STRIPE_PUBLISHABLE_KEY: z.string(),
+    STRIPE_SECRET_KEY: z.string(),
+    STRIPE_WEBHOOK_SECRET: z.string(),
+    STRIPE_10_PACK: z.string(),
+    STRIPE_25_PACK: z.string(),
+    STRIPE_100_PACK: z.string(),
   },
 
   /**
@@ -40,12 +47,19 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     // AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
     // AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
     AWS_SECRET_KEY: process.env.AWS_SECRET_KEY,
     AWS_REGION: process.env.AWS_REGION,
     AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
+    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    STRIPE_10_PACK: process.env.STRIPE_10_PACK,
+    STRIPE_25_PACK: process.env.STRIPE_25_PACK,
+    STRIPE_100_PACK: process.env.STRIPE_100_PACK,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

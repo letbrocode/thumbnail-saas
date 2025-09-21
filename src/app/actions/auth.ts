@@ -1,5 +1,7 @@
 "use server";
 import bcrypt from "bcryptjs";
+import Stripe from "stripe";
+import { env } from "~/env";
 import { signInSchema } from "~/schemas/auth";
 import { db } from "~/server/db";
 
@@ -27,12 +29,18 @@ export const signup = async (email: string, password: string) => {
   const hash = await bcrypt.hash(isValid.data.password, 10);
 
   //Create a stripe user
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+
+  const stripeCustomer = await stripe.customers.create({
+    email: isValid.data.email.toLowerCase(),
+  });
 
   //Create the user
   await db.user.create({
     data: {
       email: isValid.data.email,
       password: hash,
+      stripeCustomerId: stripeCustomer.id,
     },
   });
 

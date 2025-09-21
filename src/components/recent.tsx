@@ -44,26 +44,30 @@ const Recent = async () => {
         Download your recent thumbnails.
       </p>
       <Separator className="my-2" />
-      <div className="flex h-fit max-w-full gap-2 overflow-x-scroll">
-        {recentThumbnails?.map((thumbnail) => (
-          <div className="flex min-w-fit flex-col gap-1" key={thumbnail.key}>
-            <img
-              src={thumbnail.url}
-              alt="image"
-              className="h-56 w-auto rounded-lg object-contain"
-            />
-            <p className="text-sm">
-              From{" "}
-              {new Date(thumbnail.createdAt).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              })}
-            </p>
-            <DownloadRecentThumbnail url={thumbnail.url} />
-          </div>
-        ))}
-      </div>
+      {recentThumbnails?.length === 0 ? (
+        <p className="text-muted-foreground text-sm">No recent thumbnails.</p>
+      ) : (
+        <div className="flex h-fit max-w-full gap-2 overflow-x-scroll">
+          {recentThumbnails?.map((thumbnail) => (
+            <div className="flex min-w-fit flex-col gap-1" key={thumbnail.key}>
+              <img
+                src={thumbnail.url}
+                alt="image"
+                className="h-56 w-auto rounded-lg object-contain"
+              />
+              <p className="text-sm">
+                From{" "}
+                {new Date(thumbnail.createdAt).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
+              </p>
+              <DownloadRecentThumbnail url={thumbnail.url} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
