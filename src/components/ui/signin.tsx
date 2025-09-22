@@ -143,7 +143,7 @@ const Signin = () => {
               Sign In
             </Button>
             <Link href="/signup">
-              <Button variant="link">Don't have an account?</Button>
+              <Button variant="link">Don&apos;t have an account?</Button>
             </Link>
           </CardFooter>
         </Card>

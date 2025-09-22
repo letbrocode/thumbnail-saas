@@ -39,7 +39,7 @@ export const redirectToBillingSession = async (priceId: string) => {
     ],
     customer: user.stripeCustomerId,
     mode: "payment",
-    success_url: `${env.NEXTAUTH_URL}/api/session-callback`,
+    success_url: `${env.BASE_URL}/api/session-callback`,
   });
   if (!session.url) throw new Error("No session URL");
   redirect(session.url);

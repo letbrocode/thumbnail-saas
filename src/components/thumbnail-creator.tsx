@@ -160,21 +160,23 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
 
       const uploadUrl = await getPresignedUrl();
 
-      canvasRef.current.toBlob(async (blob) => {
+      canvasRef.current.toBlob((blob) => {
         if (blob) {
-          try {
-            const uploadUrl = await getPresignedUrl();
-            await fetch(uploadUrl, {
-              method: "PUT",
-              body: blob,
-              headers: {
-                ContentType: "image/png",
-              },
-            });
-            console.log("File uploaded successfully");
-          } catch (error) {
-            console.log("Error uploading file");
-          }
+          void (async () => {
+            try {
+              const uploadUrl = await getPresignedUrl();
+              await fetch(uploadUrl, {
+                method: "PUT",
+                body: blob,
+                headers: {
+                  ContentType: "image/png",
+                },
+              });
+              console.log("File uploaded successfully");
+            } catch (error) {
+              console.log("Error uploading file");
+            }
+          })();
         }
       }, "image/png");
     }
