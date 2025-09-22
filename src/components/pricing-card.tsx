@@ -19,7 +19,7 @@ const PricingCard = ({
 }: {
   pricing: string;
   credits: string;
-  priceId: string;
+  priceId?: string;
 }) => {
   return (
     <Card className="h-fit w-60">
@@ -43,12 +43,14 @@ const PricingCard = ({
         </div>
       </CardContent>
       <CardFooter>
-        <Button
-          onClick={async () => await redirectToBillingSession(priceId)}
-          className="mt-6 w-full"
-        >
-          Buy now
-        </Button>
+        {priceId && (
+          <Button
+            onClick={async () => await redirectToBillingSession(priceId)}
+            className="mt-6 w-full"
+          >
+            Buy now
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
