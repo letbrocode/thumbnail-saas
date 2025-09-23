@@ -188,7 +188,7 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
         <>
           {loading ? (
             <>
-              <div className="flex items-center justify-center">
+              <div className="fixed inset-0 flex items-center justify-center">
                 <div className="h-10 w-10 animate-spin rounded-full border-2 border-dashed border-gray-800"></div>
               </div>
             </>

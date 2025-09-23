@@ -40,10 +40,10 @@ export async function POST(req: Request) {
               creditsToAdd = 10;
               break;
             case env.STRIPE_25_PACK:
-              creditsToAdd = 10;
+              creditsToAdd = 25;
               break;
             case env.STRIPE_100_PACK:
-              creditsToAdd = 10;
+              creditsToAdd = 100;
               break;
           }
 
