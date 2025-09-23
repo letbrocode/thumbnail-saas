@@ -1,29 +1,53 @@
-# Create T3 App
+<h1 align="center">Thumbnail SaaS 📸</h1>
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+![Demo Screenshot](./public/demo.png)
 
-## What's next? How do I make an app with this?
+## Demo:
+https://thumbnailsgen.vercel.app/
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Overview
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+**Easier thumbnails for creators**  
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Creating thumbnails with text behind the foreground is a popular style, but it can be time-consuming to make manually. This tool lets you **generate them automatically**, saving time while producing professional-looking thumbnails for videos, blogs, and social media posts.
 
-## Learn More
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## About This Project
+- ⚛️ Tech Stack: Next.js, Tailwind CSS, ShadCN UI, PostgreSQL (Prisma ORM), NextAuth, AWS S3, Stripe, @imgly/background-removal
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- 🤖 AI Background Removal  
+- 🖼 Thumbnail Templates  
+- 🪣 S3 Bucket Integration  
+- 💳 Stripe Integration  
+- 💰 Credit System  
+- 📤 Image Uploader  
+- 🔑 Sign Up / Sign In  
+- ✨ Sleek Landing Page  
+- 🚀 Vercel Deployment  
+- 📊 PostgreSQL Database  
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
 
-## How do I deploy this?
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Setup
+
+### Clone the repository
+```bash
+git clone https://github.com/letbrocode/thumbnail-saas.git 
+cd thumbnail-saas
+```
+
+### Install dependencies
+```bash
+npm install
+```
+
+### Setup environment variables
+Create a `.env` file in the root and add the necessary environment variables from `env.js`.
+
+### Run the project
+```bash
+npm run dev
+```
+
+### Access the application
+Open your browser and visit: [http://localhost:3000](http://localhost:3000)
