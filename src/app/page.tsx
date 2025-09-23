@@ -48,7 +48,7 @@ export default async function HomePage() {
           </div>
           <Image
             className="mt-6 max-w-full rounded-lg shadow-md md:w-1/2 md:max-w-xl"
-            src="/style1.png"
+            src="/landing.png"
             width={800}
             height={800}
             loading="eager"
