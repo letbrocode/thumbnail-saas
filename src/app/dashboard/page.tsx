@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Recent from "~/components/recent";
-import Style from "~/components/style";
 import ThumbnailCreator from "~/components/thumbnail-creator";
 import { Button } from "~/components/ui/button";
 import { auth } from "~/server/auth";

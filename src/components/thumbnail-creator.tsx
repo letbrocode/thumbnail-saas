@@ -158,8 +158,6 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
       link.href = canvasRef.current.toDataURL();
       link.click();
 
-      const uploadUrl = await getPresignedUrl();
-
       canvasRef.current.toBlob((blob) => {
         if (blob) {
           void (async () => {
@@ -174,7 +172,7 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
               });
               console.log("File uploaded successfully");
             } catch (error) {
-              console.log("Error uploading file");
+              console.log("Error uploading file", error);
             }
           })();
         }
@@ -274,17 +272,17 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-10 md:flex-row md:items-start">
             <Style
-              image="style1.png"
+              image="/style1.png"
               selectStyle={() => setSelectedStyle("style1")}
               isSelected={selectedStyle === "style1"}
             />
             <Style
-              image="style2.png"
+              image="/style2.png"
               selectStyle={() => setSelectedStyle("style2")}
               isSelected={selectedStyle === "style2"}
             />
             <Style
-              image="style3.png"
+              image="/style3.png"
               selectStyle={() => setSelectedStyle("style3")}
               isSelected={selectedStyle === "style3"}
             />

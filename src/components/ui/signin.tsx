@@ -13,7 +13,7 @@ import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { type z } from "zod";
 import { signInSchema } from "~/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
@@ -53,45 +53,7 @@ const Signin = () => {
           <IoMdArrowBack className="h-4 w-4" />
           <p className="leading-7">Go back</p>
         </Link>
-        {/* <Card className="w-full max-w-sm">
-          <CardHeader>
-            <CardTitle className="text-2xl">Sign In</CardTitle>
-            <CardDescription>
-              Enter your email and password below to signin.
-            </CardDescription>
-          </CardHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <CardContent className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  {...register("email")}
-                  id="email"
-                  type="email"
-                  placeholder="mail@gmail.com"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  {...register("password")}
-                  id="password"
-                  type="password"
-                  required
-                />
-              </div>
-            </CardContent>
-            <CardFooter className="flex-col gap-2">
-              <Button type="submit" className="w-full">
-                Sign In
-              </Button>
-              <Link href="/signup">
-                <Button variant="link">Don't have an account?</Button>
-              </Link>
-            </CardFooter>
-          </form>
-        </Card> */}
+
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Sign In</CardTitle>

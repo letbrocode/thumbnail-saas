@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button";
 import Image from "next/image";
 import PricingCard from "~/components/pricing-card";
 import { auth } from "~/server/auth";
+import { ModeToggle } from "~/components/mode-toggle";
 
 export default async function HomePage() {
   const user = await auth();
@@ -14,7 +15,7 @@ export default async function HomePage() {
         <Link href="/" className="text-lg leading-7 font-semibold">
           Thumbnails
         </Link>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           {user?.user ? (
             <Button>
               <Link href="/dashboard">Go to dashboard</Link>
@@ -24,6 +25,7 @@ export default async function HomePage() {
               <Link href="/signin">Sign In</Link>
             </Button>
           )}
+          <ModeToggle />
         </div>
       </nav>
       <div className="mt-2 flex flex-col gap-20 md:mt-14">

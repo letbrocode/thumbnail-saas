@@ -6,7 +6,7 @@ const DownloadRecentThumbnail = ({ url }: { url: string }) => {
   return (
     <Button
       onClick={async () => await downloadS3File(url)}
-      className="w-full"
+      className="mb-2 w-full"
       variant="outline"
     >
       Download

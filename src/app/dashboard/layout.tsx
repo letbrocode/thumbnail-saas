@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import "~/styles/globals.css";
 import { auth } from "~/server/auth";
 import { db } from "~/server/db";
+import { ModeToggle } from "~/components/mode-toggle";
 
 export default async function Layout({
   children,
@@ -25,8 +26,9 @@ export default async function Layout({
         <div className="flex items-center gap-4">
           <p>{user?.credits} credits left</p>
           <Link href="/dashboard/pricing">
-            <Button>Buy more</Button>
+            <Button className="cursor-pointer">Buy more</Button>
           </Link>
+          <ModeToggle />
           <Signout />
         </div>
       </nav>

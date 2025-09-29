@@ -18,9 +18,9 @@ const Dropzone = ({
       />
       <label
         htmlFor="file-input"
-        className="relative flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-[#dadada] bg-white px-10 py-10"
+        className="bg-card text-card-foreground relative flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-[#dadada] px-10 py-10 transition-colors duration-200"
       >
-        <div className="absolute inset-3 rounded-2xl border border-dashed border-[#dadada]"></div>
+        <div className="border-border absolute inset-4 rounded-2xl border border-dashed"></div>
         <p>Upload a file</p>
         <RiImageAddLine className="h-10 w-10" />
       </label>
