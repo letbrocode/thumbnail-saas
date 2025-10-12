@@ -167,7 +167,7 @@ const ThumbnailCreator = ({ children }: { children: React.ReactNode }) => {
                 method: "PUT",
                 body: blob,
                 headers: {
-                  ContentType: "image/png",
+                  "Content-Type": "image/png",
                 },
               });
               console.log("File uploaded successfully");
